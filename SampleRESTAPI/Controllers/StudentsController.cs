@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SampleRESTAPI.Data;
 using SampleRESTAPI.Dtos;
@@ -14,6 +15,7 @@ namespace SampleRESTAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "admin")]
     public class StudentsController : ControllerBase
     {
         private IStudent _student;
@@ -43,6 +45,7 @@ namespace SampleRESTAPI.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize(Roles = "student")]
         public async Task<ActionResult<StudentDto>> Get(string id)
         {
             var results = await _student.GetById(id);
@@ -118,6 +121,7 @@ namespace SampleRESTAPI.Controllers
         //}
 
         [HttpGet("bycourseid")]
+        [Authorize(Roles = "student")]
         public async Task<IEnumerable<Student>> GetByCourseId(int id)
         {
             var results = await _student.GetByCourseID(id);

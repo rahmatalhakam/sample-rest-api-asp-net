@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SampleRESTAPI.Data;
 using SampleRESTAPI.Models;
@@ -10,7 +11,9 @@ using SampleRESTAPI.Models;
 
 namespace SampleRESTAPI.Controllers
 {
+    
     [Route("api/[controller]")]
+    [Authorize]
     public class EnrollmentController : ControllerBase
     {
         private IEnrollment _enrollment;
